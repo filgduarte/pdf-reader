@@ -1,4 +1,5 @@
 import PDFViewer from './components/PDFViewer';
+import PDFController from './components/PDFController';
 import './assets/global.css';
 
 const App = () => {
@@ -6,6 +7,7 @@ const App = () => {
 
   return(
     <div>
+      <PDFController />
       <PDFViewer file={pdfFile} />
     </div>
   )
