@@ -1,5 +1,5 @@
 import PDFViewer from './components/PDFViewer';
-import './assets/styles.css';
+import './assets/global.css';
 
 const App = () => {
   const pdfFile = './catalogo_loccitane.pdf';
