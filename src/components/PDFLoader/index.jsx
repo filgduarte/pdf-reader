@@ -1,6 +1,6 @@
 import './styles.css';
 
-const Loader = (props) => {
+const PDFLoader = (props) => {
     const { loadedPages, numPages, loadingText } = props;
     const progressBarStyles = {};
 
@@ -10,7 +10,7 @@ const Loader = (props) => {
     }
 
     return(
-        <div className={`loader-container ${ loadedPages == numPages ? 'all-loaded' : ''}`}>
+        <div className={`loader-container ${ loadedPages == numPages ? 'all-loaded' : null}`}>
             <div className="loading-text">{loadingText}</div>
             <div className="loader">
                 <div className="progress-bar" style={progressBarStyles}></div>
@@ -20,4 +20,4 @@ const Loader = (props) => {
     )
 }
 
-export default Loader;
+export default PDFLoader;

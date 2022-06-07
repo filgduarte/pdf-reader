@@ -9,6 +9,7 @@
     justify-content: center;
     align-items: center;
     background-image: radial-gradient(#FFF, #CCC);
+    opacity: 0.8;
     transition: opacity 500ms;
     z-index: 999;
 }
