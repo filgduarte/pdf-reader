@@ -1,0 +1,31 @@
+.pdf-controller nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 36px;
+    background: var(--color-lighter-gray);
+}
+
+.pdf-controller button {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid var(--color-light-gray);
+    background: #FFF;
+    cursor: pointer;
+}
+
+.pdf-controller button:hover {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 7px var(--color-primary-light);
+}
+
+.pdf-controller button + button {
+    margin-left: 10px;
+}
+
+.pdf-controller .current-page {
+    margin: 0 10px;
+    font-size: 14px;
+}

@@ -5,6 +5,10 @@ const useStore = create(set => ({
         numPages: 0,
         loadedPages: [],
         currentPage: 0,
+        pageSize: {
+            width: 0,
+            height: 0,
+        },
     },
 
     setNumPages: (numPages) => {
@@ -27,6 +31,14 @@ const useStore = create(set => ({
         set(
             (state) => ({
                 documentPdf: {...state.documentPdf, currentPage: currentPage}
+            })
+        );
+    },
+
+    setPageSize: (pageSize) => {
+        set(
+            (state) => ({
+                documentPdf: {...state.documentPdf, pageSize: pageSize}
             })
         );
     },

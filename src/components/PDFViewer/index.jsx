@@ -11,6 +11,7 @@ const PDFViewer = ({file}) => {
     const setNumPages = useDocumentStore(state => state.setNumPages);
     const setLoadedPages = useDocumentStore(state => state.setLoadedPages);
     const setCurrentPage = useDocumentStore(state => state.setCurrentPage);
+    const setPageSize = useDocumentStore(state => state.setPageSize);
 
     function onDocumentLoadSuccess({ numPages }) {
         setNumPages(numPages);
@@ -21,7 +22,13 @@ const PDFViewer = ({file}) => {
         const pdfDocument = document.querySelector('.pdf-document');
         const pageCanvas = document.querySelector('.react-pdf__Page__canvas');
         const pageElements = [...document.querySelectorAll('.pdf-page')];
-        const aspectRatio = pageCanvas.offsetWidth / pageCanvas.offsetHeight;
+        const pageSize = {
+            width: pageCanvas.offsetWidth,
+            height: pageCanvas.offsetHeight,
+        }
+        const aspectRatio = pageSize.width / pageSize.height;
+
+        setPageSize(pageSize);
 
         pdfDocumentWrapper.style.aspectRatio = aspectRatio  * 2;
         pdfDocument.style.width = `${documentPdf.numPages * 100}%`;

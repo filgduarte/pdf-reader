@@ -7,15 +7,18 @@
 }
 
 :root {
-    --color-primary: 272733;
-    --color-primary-light: #313140;
-    --color-primary-dark: #1f1f29;
-    --color-highlight: #3498db;
-    --color-highlight-dark: #217bb8;
-    --color-highlight-light: #6eb5e5;
+    --color-text: #272733;
+    --color-primary: #03A9F4;
+    --color-primary-dark: #0288D1;
+    --color-primary-light: #4FC3F7;
+    --color-secondary: #f44f03;
+    --color-secondary-dark: #d94100;
+    --color-secondary-light: #ff6f36;
+    --color-light-gray: #CCC;
+    --color-lighter-gray: #EFEFEF;
 }
 
 body {
     font-family: Quicksand, sans-serif;
-    color: var(--color-primary);
+    color: var(--color-text);
 }
