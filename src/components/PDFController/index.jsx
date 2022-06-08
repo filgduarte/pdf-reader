@@ -17,9 +17,10 @@ const PDFController = () => {
 
     const moveDocument = (toPage) => {
         let divider = 2;
-        if (toPage >= lastPage - 1) {
+        if ((toPage >= lastPage - 1) && lastPageIsEven) {
             divider = 1;
         }
+        console.log(divider);
         const moveAmount = (toPage - 1) * -100 / documentPdf.numPages / divider;
         document.querySelector('.pdf-document').style.transform = `translateX(${moveAmount}%)`;
     }
