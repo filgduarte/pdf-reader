@@ -12,7 +12,13 @@
     max-height: 100%;
     overflow: hidden;
     box-shadow: 0 0 15px rgba(0, 0, 0, .5);
-    transition: aspect-ratio 300ms ease;
+    transition: aspect-ratio 300ms ease,
+                opacity 300ms;
+    opacity: 0;
+}
+
+.pdf-document-wrapper.first-loaded {
+    opacity: 1;
 }
 
 .pdf-document {
@@ -30,4 +36,32 @@ div.pdf-page {
 div.pdf-page canvas {
     width: 100% !important;
     height: 100% !important;
+}
+
+.pdf-container::before {
+    content: '';
+    position: absolute;
+    top: calc(50% - 24px);
+    left: calc(50% - 24px);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 5px solid var(--color-primary);
+    border-bottom-color: transparent;
+    animation: spin 1s linear infinite;
+    transition: opacity .3s;
+    z-index: -1;
+}
+
+.pdf-container.first-loaded::before {
+    opacity: 0;
+}
+
+@keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
 }

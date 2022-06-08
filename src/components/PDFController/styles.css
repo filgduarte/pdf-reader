@@ -1,8 +1,12 @@
+.pdf-controller {
+    position: relative;
+}
+
 .pdf-controller nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 36px;
+    height: var(--controller-height);
     background: var(--color-lighter-gray);
 }
 

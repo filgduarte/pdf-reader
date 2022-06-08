@@ -3,7 +3,6 @@ import { Document, Page } from 'react-pdf';
 import { pdfjs } from 'react-pdf';
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 import './styles.css';
-import PDFLoader from '../PDFLoader';
 import { useDocumentStore } from '../../stores/document';
 
 const PDFViewer = ({file}) => {
@@ -16,6 +15,7 @@ const PDFViewer = ({file}) => {
 
     function onDocumentLoadSuccess({ numPages }) {
         setNumPages(numPages);
+        setCurrentPage(1);
     }
 
     function setDocumentAspectRatio() {
@@ -54,7 +54,6 @@ const PDFViewer = ({file}) => {
     useEffect(() => {
         if (documentPdf.loadedPages.includes(1)) {
             setDocumentSize();
-            setCurrentPage(1);
         }
     }, [documentPdf.loadedPages]);
 
@@ -64,8 +63,7 @@ const PDFViewer = ({file}) => {
 
     return(
         <main className="pdf-container">
-            <PDFLoader loadingText='Carregando...' />
-            <div className="pdf-document-wrapper" style={{aspectRatio: documentPdf.pageSize.aspectRatio * documentPdf.aspectRatioMultiplier}}>
+            <div className={`pdf-document-wrapper ${documentPdf.loadedPages.includes(1) ? 'first-loaded' : ''}`} style={{aspectRatio: documentPdf.pageSize.aspectRatio * documentPdf.aspectRatioMultiplier}}>
                 <Document
                     className='pdf-document'
                     file={file}

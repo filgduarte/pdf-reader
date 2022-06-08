@@ -16,6 +16,7 @@
     --color-secondary-light: #ff6f36;
     --color-light-gray: #CCC;
     --color-lighter-gray: #EFEFEF;
+    --controller-height: 36px;
 }
 
 body {

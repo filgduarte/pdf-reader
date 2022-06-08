@@ -1,3 +1,4 @@
+import PDFLoader from '../PDFLoader';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faAngleLeft,
@@ -89,6 +90,7 @@ const PDFController = () => {
                 <button onClick={() => handleClick('next')}><FontAwesomeIcon icon={faAngleRight} /></button>
                 <button onClick={() => handleClick('last')}><FontAwesomeIcon icon={faAnglesRight} /></button>
             </nav>
+            <PDFLoader />
         </header>
     );
 };

@@ -1,8 +1,7 @@
 import { useDocumentStore } from '../../stores/document';
 import './styles.css';
 
-const PDFLoader = (props) => {
-    const { loadingText } = props;
+const PDFLoader = () => {
     const documentPdf = useDocumentStore(state => state.documentPdf);
     const progressBarStyles = {};
 
@@ -12,11 +11,9 @@ const PDFLoader = (props) => {
     }
 
     return(
-        <div className={`loader-container ${ documentPdf.loadedPages.length == documentPdf.numPages ? 'all-loaded' : null}`}>
-            <div className="loading-text">{loadingText}</div>
+        <div className={`loader-container ${ documentPdf.loadedPages.length == documentPdf.numPages ? 'all-loaded' : ''}`}>
             <div className="loader">
                 <div className="progress-bar" style={progressBarStyles}></div>
-                <div className="loaded-label">{documentPdf.loadedPages.length} / {documentPdf.numPages}</div>
             </div>
         </div>
     )
