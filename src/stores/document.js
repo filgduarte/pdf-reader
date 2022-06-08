@@ -8,7 +8,9 @@ const useStore = create(set => ({
         pageSize: {
             width: 0,
             height: 0,
+            aspectRatio: 0,
         },
+        aspectRatioMultiplier: 1,
     },
 
     setNumPages: (numPages) => {
@@ -39,6 +41,14 @@ const useStore = create(set => ({
         set(
             (state) => ({
                 documentPdf: {...state.documentPdf, pageSize: pageSize}
+            })
+        );
+    },
+
+    setAspectRatioMultiplier: (aspectRatioMultiplier) => {
+        set(
+            (state) => ({
+                documentPdf: {...state.documentPdf, aspectRatioMultiplier: aspectRatioMultiplier}
             })
         );
     },

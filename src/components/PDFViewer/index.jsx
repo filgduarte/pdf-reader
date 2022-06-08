@@ -12,29 +12,43 @@ const PDFViewer = ({file}) => {
     const setLoadedPages = useDocumentStore(state => state.setLoadedPages);
     const setCurrentPage = useDocumentStore(state => state.setCurrentPage);
     const setPageSize = useDocumentStore(state => state.setPageSize);
+    const setAspectRatioMultiplier = useDocumentStore(state => state.setAspectRatioMultiplier);
 
     function onDocumentLoadSuccess({ numPages }) {
         setNumPages(numPages);
     }
 
+    function setDocumentAspectRatio() {
+        const currentAspectRatioMultiplier = documentPdf.aspectRatioMultiplier;
+        let newAspectRatioMultiplier = 2;
+        const isFirstPage = (documentPdf.currentPage == 1) ? true : false;
+        const isLastPage = (documentPdf.currentPage == documentPdf.numPages) ? true : false;
+        const lastPageIsEven = (documentPdf.numPages % 2 == 0) ? true : false;
+
+        if (isFirstPage || (isLastPage && lastPageIsEven)) {
+            newAspectRatioMultiplier = 1;
+        }
+
+        if (newAspectRatioMultiplier != currentAspectRatioMultiplier) {
+            setAspectRatioMultiplier(newAspectRatioMultiplier);
+        }
+    }
+
     function setDocumentSize() {
-        const pdfDocumentWrapper  = document.querySelector('.pdf-document-wrapper');
         const pdfDocument = document.querySelector('.pdf-document');
         const pageCanvas = document.querySelector('.react-pdf__Page__canvas');
         const pageElements = [...document.querySelectorAll('.pdf-page')];
         const pageSize = {
             width: pageCanvas.offsetWidth,
             height: pageCanvas.offsetHeight,
+            aspectRatio: pageCanvas.offsetWidth / pageCanvas.offsetHeight
         }
-        const aspectRatio = pageSize.width / pageSize.height;
 
-        setPageSize(pageSize);
-
-        pdfDocumentWrapper.style.aspectRatio = aspectRatio  * 2;
         pdfDocument.style.width = `${documentPdf.numPages * 100}%`;
         pageElements.map(pageElement => {
-            pageElement.style.aspectRatio = aspectRatio;
+            pageElement.style.aspectRatio = pageSize.aspectRatio;
         });
+        setPageSize(pageSize);
     }
 
     useEffect(() => {
@@ -44,10 +58,14 @@ const PDFViewer = ({file}) => {
         }
     }, [documentPdf.loadedPages]);
 
+    useEffect(() => {
+        setDocumentAspectRatio();
+    }, [documentPdf.currentPage]);
+
     return(
         <main className="pdf-container">
             <PDFLoader loadingText='Carregando...' />
-            <div className="pdf-document-wrapper">
+            <div className="pdf-document-wrapper" style={{aspectRatio: documentPdf.pageSize.aspectRatio * documentPdf.aspectRatioMultiplier}}>
                 <Document
                     className='pdf-document'
                     file={file}

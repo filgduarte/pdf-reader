@@ -11,36 +11,60 @@ import { useDocumentStore } from "../../stores/document";
 const PDFController = () => {
     const documentPdf = useDocumentStore(state => state.documentPdf);
     const setCurrentPage = useDocumentStore(state => state.setCurrentPage);
-    const lastOddPage = Math.ceil(documentPdf.numPages / 2) * 2 - 1;
+    const lastPage = documentPdf.numPages;
+    const lastPageIsEven = (lastPage % 2 == 0) ? true : false;
 
     const moveDocument = (toPage) => {
-        const moveAmount = (toPage - 1) * documentPdf.pageSize.width * -1;
-        document.querySelector('.pdf-document').style.transform = `translateX(${moveAmount}px)`;
+        let divider = 2;
+        if (toPage >= lastPage - 1) {
+            divider = 1;
+        }
+        const moveAmount = (toPage - 1) * -100 / documentPdf.numPages / divider;
+        document.querySelector('.pdf-document').style.transform = `translateX(${moveAmount}%)`;
     }
 
     const handleClick = (action) => {
+        const currentPage = documentPdf.currentPage;
+        const isFirstPage = (currentPage == 1) ? true : false;
+        const isSecondPage = (currentPage == 2) ? true : false;
+        const isPenultimatePage = (currentPage == lastPage - 1) ? true : false;
+    
         switch (action) {
             case 'first':
                 setCurrentPage(1);
                 moveDocument(1);
             break;
             case 'prev':
-                if (documentPdf.currentPage > 1) {
-                    const prevPage = documentPdf.currentPage - 2;
+                let prevPage = currentPage - 2;
+
+                if (isSecondPage) {
+                    prevPage = currentPage - 1;
+                }
+
+                if (currentPage > 1) {
                     setCurrentPage(prevPage);
                     moveDocument(prevPage);
                 }
             break;
             case 'next':
-                if (documentPdf.currentPage < lastOddPage) {
-                    const nextPage = documentPdf.currentPage + 2;
+                let nextPage = currentPage + 2;
+
+                if (isFirstPage || (isPenultimatePage && lastPageIsEven)) {
+                    nextPage = currentPage + 1;
+                }
+
+                if (currentPage < lastPage - 1) {
                     setCurrentPage(nextPage);
                     moveDocument(nextPage);
                 }
             break;
             case 'last':
-                setCurrentPage(lastOddPage);
-                moveDocument(lastOddPage);
+                let goTo = lastPage - 1;
+                if (lastPageIsEven) {
+                    goTo = lastPage
+                }
+                setCurrentPage(goTo);
+                moveDocument(goTo);
             break;
         }
     }
