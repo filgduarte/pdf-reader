@@ -23,6 +23,17 @@ const PDFController = () => {
         document.querySelector('.pdf-document').style.transform = `translateX(${moveAmount}%)`;
     }
 
+    const getCurrentPageText = () => {
+        const currentPage = documentPdf.currentPage;
+        let currentPageText = `${currentPage}-${currentPage + 1}`;
+
+        if (currentPage == 1 || currentPage == lastPage) {
+            currentPageText = currentPage;
+        }
+
+        return currentPageText;
+    }
+
     const handleClick = (action) => {
         const currentPage = documentPdf.currentPage;
         const isFirstPage = (currentPage == 1) ? true : false;
@@ -74,7 +85,7 @@ const PDFController = () => {
             <nav>
                 <button onClick={() => handleClick('first')}><FontAwesomeIcon icon={faAnglesLeft} /></button>
                 <button onClick={() => handleClick('prev')}><FontAwesomeIcon icon={faAngleLeft} /></button>
-                <div className="current-page">{documentPdf.currentPage}-{documentPdf.currentPage + 1} / {documentPdf.numPages}</div>
+                <div className="current-page">{getCurrentPageText()} / {documentPdf.numPages}</div>
                 <button onClick={() => handleClick('next')}><FontAwesomeIcon icon={faAngleRight} /></button>
                 <button onClick={() => handleClick('last')}><FontAwesomeIcon icon={faAnglesRight} /></button>
             </nav>
